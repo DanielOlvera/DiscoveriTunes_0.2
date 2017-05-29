@@ -245,6 +245,9 @@ public class Result {
     }
 
     public Double getTrackPrice() {
+        if (trackPrice == null){
+            trackPrice = 0.0;
+        }
         return trackPrice;
     }
 

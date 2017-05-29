@@ -47,7 +47,7 @@
 
         <EditText
             android:id="@+id/m_searchBar"
-            android:layout_width="290dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:hint="@string/hint_searchBar"
             android:textColorHint="@color/hintColor_Gray300"/>

@@ -1,6 +1,7 @@
 package com.example.daniel.discoveritunes_02.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.daniel.discoveritunes_02.R;
 import com.example.daniel.discoveritunes_02.model.Result;
+import com.example.daniel.discoveritunes_02.view.DetailsActivity.DetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,6 @@ import butterknife.ButterKnife;
 public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.SearchHolder>{
 
     private static final String TAG = SearchAdapter.class.getSimpleName();
-    private static final String BASE_URL_IMAGE = "http://a1.itunes.apple.com/r10/Music/3b/6a/33";
 
     private List<Result> results;
     private int rowLayout;
@@ -68,7 +68,7 @@ public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.SearchHol
                 .centerCrop()
                 .into(holder.artwork30ImVw);
         holder.trackName.setText(results.get(position).getTrackName());
-        holder.trackPrice.setText(results.get(position).getTrackPrice().toString());
+        holder.trackPrice.setText(Double.toString(results.get(position).getTrackPrice())); //TODO: fix -> Attempt to invoke virtual method 'java.lang.String java.lang.Double.toString()' on a null object reference
         holder.desciption.setText(results.get(position).getKind());
         Log.d(TAG, "onBindViewHolder: " + results.get(position).getTrackPrice().toString()
                 +results.get(position).getArtworkUrl30());
@@ -79,7 +79,7 @@ public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.SearchHol
         return results.size();
     }
 
-    public class SearchHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class SearchHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         @BindView(R.id.cv_artworkUrl30)
         ImageView artwork30ImVw;
@@ -93,7 +93,7 @@ public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.SearchHol
         List<Result> results = new ArrayList<>();
         Context context;
 
-        public SearchHolder(View itemView, Context context, List<Result> results) {
+        SearchHolder(View itemView, Context context, List<Result> results) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -104,9 +104,26 @@ public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.SearchHol
         @Override
         public void onClick(View view) {
             //TODO: start here details activity
-            Toast.makeText(context, "recyclerItem selected", Toast.LENGTH_SHORT).show();
+            int position = getAdapterPosition();
+            Result result = this.results.get(position);
+            Intent intent = prepareIntent(result);
+            context.startActivity(intent);
         }
 
-        //TODO: Add  preparedIntent method to share the estras for the detail activity
+        /**
+         * This method allows to send data to DetailsActivity each time we select one item
+         * from the recyclerview
+         * @param result the object from where we are retrieving values
+         * @return is used to return the intent need to share data with DetailsActivity
+         */
+        Intent prepareIntent(Result result){
+            Intent intent = new Intent(this.context, DetailsActivity.class);
+            intent.putExtra(SearchConstants.Companion.getTRACK_NAME(), result.getTrackName());
+            intent.putExtra(SearchConstants.Companion.getARTWORK_100(), result.getArtworkUrl100());
+            intent.putExtra(SearchConstants.Companion.getLONG_DESCRIPTION(), result.get);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Log.d(TAG, "prepareIntent: " + SearchConstants.Companion.getTRACK_NAME());
+            return intent;
+        }
     }
 }
