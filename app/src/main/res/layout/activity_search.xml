@@ -27,7 +27,8 @@
                 android:id="@+id/m_spinnerTbr"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:gravity="end"/>
+                android:gravity="end"
+                android:visibility="gone"/>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 

@@ -2,7 +2,7 @@
     <string name="app_name">DiscoveriTunes_0.2</string>
 
     <string name="itunes_search">Search tracks</string>
-    <string name="start_searchingBtn">Search</string>
+    <string name="start_searchingBtn">Start</string>
     <string name="hint_searchBar">Start searching!</string>
     <string name="btn_searchBtn">Search</string>
     <string name="trackname">Track name</string>

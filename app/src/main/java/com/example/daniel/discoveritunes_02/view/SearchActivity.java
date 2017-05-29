@@ -6,6 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -13,6 +15,7 @@ import com.example.daniel.discoveritunes_02.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -22,6 +25,10 @@ public class SearchActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.m_spinnerTbr)
     Spinner spinner;
+    @BindView(R.id.m_startBtn)
+    Button startBtn;
+    @BindView(R.id.m_recyclerLayout)
+    RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,6 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setupSpinner();
-
 
     }
 
@@ -52,5 +58,12 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.m_startBtn)
+    public void onStartSearch(){
+        startBtn.setVisibility(View.GONE);
+        relativeLayout.setVisibility(View.VISIBLE);
+        spinner.setVisibility(View.VISIBLE);
     }
 }
