@@ -8,5 +8,6 @@ class SearchConstants {
         val TRACK_NAME = "trackName"
         val ARTWORK_100 = "artwork100"
         val LONG_DESCRIPTION = "longDescription"
+        val ARTIST_NAME = "artistName"
     }
 }

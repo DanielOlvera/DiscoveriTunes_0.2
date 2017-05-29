@@ -40,7 +40,7 @@ class DetailsActivity : AppCompatActivity() {
                     .into(d_artworkUrl100)
             dTrackName.text = searchDetails.trackName
             d_longDescription.text = searchDetails.longDescription
-
+            dArtistName.text = searchDetails.artistName
         }
     }
 }

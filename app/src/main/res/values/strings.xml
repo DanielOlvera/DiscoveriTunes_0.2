@@ -8,6 +8,7 @@
     <string name="trackname">Track name</string>
     <string name="trackprice">Track price</string>
     <string name="shortdescriptionkind">Short description</string>
+    <string name="artistName">Artist Name</string>
 
     <string-array name="entities_array">
         <item>movie</item>

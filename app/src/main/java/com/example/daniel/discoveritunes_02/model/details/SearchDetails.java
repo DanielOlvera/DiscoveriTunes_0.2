@@ -13,11 +13,13 @@ public class SearchDetails {
     private String trackName;
     private String art100;
     private String longDescription;
+    private String artistName;
 
     public SearchDetails fromExtras(Intent details){
         this.trackName = details.getStringExtra(SearchConstants.Companion.getTRACK_NAME());
         this.art100 = details.getStringExtra(SearchConstants.Companion.getARTWORK_100());
         this.longDescription = details.getStringExtra(SearchConstants.Companion.getLONG_DESCRIPTION());
+        this.artistName = details.getStringExtra(SearchConstants.Companion.getARTIST_NAME());
         return this;
     }
 
@@ -43,5 +45,13 @@ public class SearchDetails {
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 }

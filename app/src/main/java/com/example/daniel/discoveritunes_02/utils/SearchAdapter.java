@@ -68,8 +68,8 @@ public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.SearchHol
                 .centerCrop()
                 .into(holder.artwork30ImVw);
         holder.trackName.setText(results.get(position).getTrackName());
-        holder.trackPrice.setText(Double.toString(results.get(position).getTrackPrice())); //TODO: fix -> Attempt to invoke virtual method 'java.lang.String java.lang.Double.toString()' on a null object reference
-        holder.desciption.setText(results.get(position).getKind());
+        holder.trackPrice.setText(String.format("$ %1$.2f", results.get(position).getTrackPrice())); //TODO: fix -> Attempt to invoke virtual method 'java.lang.String java.lang.Double.toString()' on a null object reference
+        holder.description.setText(results.get(position).getKind().replaceAll("-", " "));
         Log.d(TAG, "onBindViewHolder: " + results.get(position).getTrackPrice().toString()
                 +results.get(position).getArtworkUrl30());
     }
@@ -88,7 +88,7 @@ public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.SearchHol
         @BindView(R.id.cv_price)
         TextView trackPrice;
         @BindView(R.id.cv_description)
-        TextView desciption;
+        TextView description;
 
         List<Result> results = new ArrayList<>();
         Context context;
@@ -120,7 +120,8 @@ public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.SearchHol
             Intent intent = new Intent(this.context, DetailsActivity.class);
             intent.putExtra(SearchConstants.Companion.getTRACK_NAME(), result.getTrackName());
             intent.putExtra(SearchConstants.Companion.getARTWORK_100(), result.getArtworkUrl100());
-            intent.putExtra(SearchConstants.Companion.getLONG_DESCRIPTION(), result.get);
+            intent.putExtra(SearchConstants.Companion.getLONG_DESCRIPTION(), result.getCollectionName());
+            intent.putExtra(SearchConstants.Companion.getARTIST_NAME(), result.getArtistName());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Log.d(TAG, "prepareIntent: " + SearchConstants.Companion.getTRACK_NAME());
             return intent;
