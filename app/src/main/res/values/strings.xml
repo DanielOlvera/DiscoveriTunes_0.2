@@ -9,7 +9,7 @@
     <string name="trackprice">Track price</string>
     <string name="shortdescriptionkind">Short description</string>
 
-    <array name="entities_array">
+    <string-array name="entities_array">
         <item>movie</item>
         <item>album</item>
         <item>allArtist</item>
@@ -19,5 +19,5 @@
         <item>audiobook</item>
         <item>tvSeason</item>
         <item>allTrack</item>
-    </array>
+    </string-array>
 </resources>
