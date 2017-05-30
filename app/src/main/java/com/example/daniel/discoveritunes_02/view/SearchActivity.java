@@ -1,7 +1,7 @@
 package com.example.daniel.discoveritunes_02.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,9 +26,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -101,6 +102,33 @@ public class SearchActivity extends AppCompatActivity {
         Log.d(TAG, "onStartSearch: " + term + entity);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         RetrofitService service = RetrofitService.Factory.create();
+        rx.Observable<ITunesResult> call = service.search(term, entity);
+        call.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ITunesResult>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(ITunesResult iTunesResult) {
+                        List<Result> results = iTunesResult.getResults();
+                        recyclerView.setAdapter(new SearchAdapter(results, R.layout.search_list_item, getApplicationContext()));
+                    }
+                });
+    }
+
+}
+
+/*
+Previous code to manage the response with only retrofit;
+RetrofitService service = RetrofitService.Factory.create();
         Call<ITunesResult> call = service.getSearch(term, entity);
         call.enqueue(new Callback<ITunesResult>() {
             @Override
@@ -114,6 +142,4 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-}
+ */
